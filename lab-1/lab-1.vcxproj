@@ -77,6 +77,8 @@
   <ItemGroup>
     <None Include="task1.s" />
     <None Include="task2.s" />
+    <None Include="task3.s" />
+    <None Include="task4.s" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="print_ram.c" />
