@@ -5,7 +5,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="lab-1/lab-1.vcxproj">
+  <Project Path="lab-1/lab-1.vcxproj" Id="62466b45-ad26-4f5c-a269-fe8a78f455cb">
     <Platform Solution="*|x86" Project="x86" />
     <Deploy />
   </Project>
