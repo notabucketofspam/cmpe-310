@@ -75,6 +75,11 @@
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
+    <None Include="task1.s" />
+    <None Include="task2.s" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="print_ram.c" />
   </ItemGroup>
   <ItemDefinitionGroup />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
