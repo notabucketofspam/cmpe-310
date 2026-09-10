@@ -1,0 +1,1 @@
+gcc -no-pie task1.s print_ram.c -o task1&& ./task1
