@@ -2,21 +2,28 @@
 .globl ram 
 .lcomm ram, 256
 
-.section .text 
+.section .text
 .globl fill_ram
 
-fill_ram: 
-	movb $0x00, %al
+fill_ram:
 	movq $ram+0x50, %rdi
-	movb %al, 0(%rdi)
-	movb %al, 1(%rdi)
-	movb %al, 2(%rdi)
-	movb %al, 3(%rdi)
-	movb %al, 4(%rdi)
-	movb %al, 5(%rdi)
-	movb %al, 6(%rdi)
-	movb %al, 7(%rdi)
-	movb %al, 8(%rdi)
+	#movq (0x0), (%rdi)
+	# the accumulator
+	movb $0x00, %al
+	# the counter
+	mov $0x01, %cl
+
+	# this is our loop
+	the_top:
+	add %cl, %al
+	inc %cl
+	# B means "eleven"
+	# and we are doing this because we are counting from one to ten
+	cmpb $0x0B, %cl
+	jne the_top
+
+	movb %al, (%rdi)
+	
 	ret
 
 .section .note.GNUStack, "", @progbits
