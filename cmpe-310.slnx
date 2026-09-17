@@ -5,8 +5,16 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="fun/fun.vcxproj" Id="88147964-f3f4-405b-b1ce-0db2e2c762da">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
   <Project Path="lab-1/lab-1.vcxproj" Id="62466b45-ad26-4f5c-a269-fe8a78f455cb">
     <Platform Solution="*|x86" Project="x86" />
     <Deploy />
+  </Project>
+  <Project Path="lab3/lab3.vcxproj" Id="d5ec8cc6-8c17-4686-8403-6f988dc72a2d">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
   </Project>
 </Solution>

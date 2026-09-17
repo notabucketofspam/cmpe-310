@@ -3,3 +3,8 @@
 
 # build outputs for when im throwing
 *.exe
+
+obj/
+x64/
+bin/
+Debug/
