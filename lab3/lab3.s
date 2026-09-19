@@ -135,17 +135,71 @@ str2_longest:
 	jmp done_with_that_part
 done_with_that_part:
 
+# WHAT IS IN MY BUFFERS DEAREST:
+# 0x00 the length of string 1
+# 0x10 length string 2
+# 0x20 the length of the shorter string (he probs feels inadequate)
+# 0x30 the actual Hamming length
+
+# HOW DO WE READ SOMETHING OUT OF BUFFER AND INTO RAX???
+# where $OFFSET is one of those offsets above:
+# mov $OFFSET, %rdi
+# mov some_buffers(%rdi), %rax
+
+# ======================================
+# and now, we shall so something with Hamming girth
+
+	mov $0x20, %rdi 
+	movq some_buffers(%rdi), %rbx # put the shortest length into rbx
+	mov $0x00, %rax # rax is gonna hold girth while we count
+	mov $0x00, %rcx # rcx has the current byte count, to make sure that we dont do more than the length
+
+measuring_his_girth:
+	cmp %rcx, %rbx # "are we there yet?"
+	je we_have_his_girth
+	jne still_measuring_it
+still_measuring_it: # this is the start of the loop (kinda)
+
+	# ah has a byte from string 1, and then has the xorb result
+	# bh has byte from string 2
+	# ch is holding the bit position that im using for bsf
+	mov $0x00, %ax
+	mov $0x00, %bx
+	mov $0x00, %cx
+	movb input_str1(%rcx), %ah
+	movb input_str2(%rcx), %bh
+	movb $0x00, %ch
+	xorb %ah, %bh
+
+we_are_bsring:
+	bsr %ax, %cx
+	jnz we_do_indeed_have_a_bit_here
+	jz oops_all_zeros
+
+we_do_indeed_have_a_bit_here:
+	inc %rax # accumulate
+	btr %ax, %cx # reset this bit
+	jmp we_are_bsring
+
+oops_all_zeros:
+	inc %rcx # onto the next byte
+	jmp measuring_his_girth
+
+we_have_his_girth: # this is the end of the loop
+	mov $0x30, %rdi
+	mov %rax, some_buffers(%rdi) # i was saving that one for later
+
 # TEST: print out that length, to make sure that im doing this right
 # we know that the length of the written portion cant be more than 3
-
+	mov $0x30, %rdi # this is the hamming number
 	movq some_buffers(%rdi), %rax # move the length into rax (bc dividing)
 
 	mov $output_str, %rdi # pointer for the string
-	add $0x5, %rdi # move the pointer to the end of the string
+	add $0x4, %rdi # move the pointer to the end of the string
 	mov %rdi, %rsi # put it here
 	dec %rsi # move him back a smidge
 	movb $0x0A, (%rsi) # put a newline at the end of the string
-	dec %rsi # move the pointer back to where we want to put the first digit
+	dec %rsi # move the pointer back to where we want to put the lowest digit
 
 	mov $0x0A, %rcx # put 10 in rcx (bc we are dividing by 10)
 writeger:
