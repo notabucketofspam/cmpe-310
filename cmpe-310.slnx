@@ -9,9 +9,9 @@
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
-  <Project Path="lab-1/lab-1.vcxproj" Id="62466b45-ad26-4f5c-a269-fe8a78f455cb">
-    <Platform Solution="*|x86" Project="x86" />
-    <Deploy />
+  <Project Path="lab2/lab2.vcxproj" Id="38c869be-920b-42e5-ba66-43e7eb11b602">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
   </Project>
   <Project Path="lab3/lab3.vcxproj" Id="d5ec8cc6-8c17-4686-8403-6f988dc72a2d">
     <Platform Solution="*|ARM" Project="x64" />
