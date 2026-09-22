@@ -206,20 +206,19 @@ we_have_his_girth: # this is the end of the loop
 	mov %rdi, %rsi # put it here
 	dec %rsi # move him back a smidge
 	movb $0x0A, (%rsi) # put a newline at the end of the string
-	dec %rsi # move the pointer back to where we want to put the lowest digit
 	#this has our "actual" string size
-	mov $0x02, %r8
+	mov $0x01, %r8
 
 	mov $0x0A, %rcx # put 10 in rcx (bc we are dividing by 10)
 writeger:
+	dec %rsi # look at the next place to put a char
+	inc %r8 # the real length of the output string
 	movq $0, %rdx # clear rdx (bc we are dividing)
 	# divide rax by 10; 
 	#remainder is in rdx, quotient is in rax	
 	div %rcx
 	add $0x30,%rdx # this (sort of) converts it to ascii number
 	movb %dl, (%rsi) # put this char in the output string
-	dec %rsi # look at the next place to put a char
-	inc %r8 # the real length of the output string
 	test %rax, %rax # is rax zero?
 	jnz writeger # the answer may surprise you
 
