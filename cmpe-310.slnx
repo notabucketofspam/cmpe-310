@@ -17,4 +17,8 @@
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
+  <Project Path="lent/lent.vcxproj" Id="2c0a0ccf-894b-48f8-ad2d-a177116393e0">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
 </Solution>
