@@ -60,7 +60,7 @@ _start:
 # ======================================
 # and now, we shall so something, but idk what lol
 
-mov $0x10, %ax
+mov $0x11, %ax
 mov $0x00, %cx
 bsr %ax, %cx # find the highest bit set
 btr %cx, %ax # clear that bit
