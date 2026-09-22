@@ -178,7 +178,7 @@ we_are_bsring:
 
 we_do_indeed_have_a_bit_here:
 	inc %rax # accumulate
-	btr %ax, %cx # reset this bit
+	btr %cx, %ax # reset this bit
 	jmp we_are_bsring
 
 oops_all_zeros:
