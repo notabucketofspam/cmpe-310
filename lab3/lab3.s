@@ -151,8 +151,8 @@ done_with_that_part:
 
 	mov $0x20, %rdi 
 	movq some_buffers(%rdi), %rbx # put the shortest length into rbx
-	mov $0x00, %rax # rax is gonna hold girth while we count
-	mov $0x00, %rcx # rcx has the current byte count, to make sure that we dont do more than the length
+	xorq %rax, %rax # rax is gonna hold girth while we count
+	xorq %rcx, %rcx # rcx has the current byte count, to make sure that we dont do more than the length
 
 measuring_his_girth:
 	cmp %rcx, %rbx # "are we there yet?"
@@ -160,26 +160,26 @@ measuring_his_girth:
 	jne still_measuring_it
 still_measuring_it: # this is the start of the loop (kinda)
 
-	# ah has a byte from string 1, and then has the xorb result
-	# bh has byte from string 2
-	# ch is holding the bit position that im using for bsf
-	mov $0x00, %ax
-	mov $0x00, %bx
-	mov $0x00, %cx
-	movb input_str1(%rcx), %ah
-	movb input_str2(%rcx), %bh
-	movb $0x00, %ch
-	xorb %ah, %bh
+	# r8 has a byte from string 1, and then has the xorb result
+	# r9 has byte from string 2
+	# r10 is holding the bit position that im using for bsf
+	xorq %r8, %r8
+	xorq %r9, %r9
+	xorq %r10, %r10
+	# i looked it up, and the "z" in "movzbq" means
+	# "fill that guy with zeroes"
+	movzbq input_str1(%rcx), %r8
+	movzbq input_str2(%rcx), %r9
+	xorq %r8, %r9
 
-we_are_bsring:
-	bsr %ax, %cx
-	jnz we_do_indeed_have_a_bit_here
+we_are_scanning:
+	bsfq %r9, %r10
 	jz oops_all_zeros
 
 we_do_indeed_have_a_bit_here:
 	inc %rax # accumulate
-	btr %cx, %ax # reset this bit
-	jmp we_are_bsring
+	btrq %r10, %r9 # reset this bit
+	jmp we_are_scanning
 
 oops_all_zeros:
 	inc %rcx # onto the next byte
