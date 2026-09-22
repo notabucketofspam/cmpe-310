@@ -1,12 +1,10 @@
 .section .data
-	please_str1: .asciz "gimme string #1, please:\n"
-	len_str1 = . - please_str1 # idk how this works but it was in the powerpoint from lab
-	please_str2: .asciz "aight bet. now... please gimme string #2:\n"
-	len_str2 = . - please_str2
 	stringman: .asciz "Mr. Stringman, string me a man:\n"
 	len_stringman = . - stringman
 	make_him_the: .asciz "Make him the cutest:\n"
 	len_make_him_the = . - make_him_the
+	psa_str1: .asciz "This is the Hamming Distance:\n"
+	len_psa_str1 = . - psa_str1 # idk how this works but it was in the powerpoint from lab
 
 .section .bss
 # this is where we store the user's strings
@@ -157,9 +155,9 @@ done_with_that_part:
 measuring_his_girth:
 	cmp %rcx, %rbx # "are we there yet?"
 	je we_have_his_girth
-	jne still_measuring_it
-still_measuring_it: # this is the start of the loop (kinda)
 
+# this is the start of the loop (kinda)
+still_measuring_it:
 	# r8 has a byte from string 1, and then has the xorb result
 	# r9 has byte from string 2
 	# r10 is holding the bit position that im using for bsf
@@ -187,19 +185,30 @@ oops_all_zeros:
 
 we_have_his_girth: # this is the end of the loop
 	mov $0x30, %rdi
-	mov %rax, some_buffers(%rdi) # i was saving that one for later
+	mov %rax, some_buffers(%rdi) # im saving that one for later
 
-# TEST: print out that length, to make sure that im doing this right
-# we know that the length of the written portion cant be more than 3
+# I'VE COME TO MAKE AN ANNOUNCEMENT
+	mov $1, %rax
+	mov $1, %rdi
+	mov $psa_str1, %rsi
+	mov $len_psa_str1, %rdx
+	syscall
+
+# AND NOW: print out Hammond's size, to make sure that im doing this right
+# we know that the length of the written portion cant be more than 4;
+# 256 Bytes x 8 bits = "2048" max value for Hammy's dongle.
+# which is why we need two more than that (newline + ntbs)
 	mov $0x30, %rdi # this is the hamming number
 	movq some_buffers(%rdi), %rax # move the length into rax (bc dividing)
 
 	mov $output_str, %rdi # pointer for the string
-	add $0x4, %rdi # move the pointer to the end of the string
+	add $0x6, %rdi # move the pointer to the end of the string
 	mov %rdi, %rsi # put it here
 	dec %rsi # move him back a smidge
 	movb $0x0A, (%rsi) # put a newline at the end of the string
 	dec %rsi # move the pointer back to where we want to put the lowest digit
+	#this has our "actual" string size
+	movzq $0x02, %r8
 
 	mov $0x0A, %rcx # put 10 in rcx (bc we are dividing by 10)
 writeger:
@@ -210,18 +219,18 @@ writeger:
 	add $0x30,%rdx # this (sort of) converts it to ascii number
 	movb %dl, (%rsi) # put this char in the output string
 	dec %rsi # look at the next place to put a char
+	inc %r8 # the real length of the output string
 	test %rax, %rax # is rax zero?
 	jnz writeger # the answer may surprise you
 
 	# print it!
 	mov $1, %rax # write
 	mov $1, %rdi # stdout
-	mov $output_str, %rsi # buf
-	mov $0x5, %rdx # len
+	#mov $output_str, %rsi # buf
+	movq %r8, %rdx # len
 	syscall
 
-
-# this is equivalent to give up
+# this is equivalent to PLEASE GIVE UP
 mov $60, %rax
 mov $0,  %rdi
 syscall
