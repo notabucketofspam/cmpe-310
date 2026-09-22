@@ -208,7 +208,7 @@ we_have_his_girth: # this is the end of the loop
 	movb $0x0A, (%rsi) # put a newline at the end of the string
 	dec %rsi # move the pointer back to where we want to put the lowest digit
 	#this has our "actual" string size
-	movzq $0x02, %r8
+	mov $0x02, %r8
 
 	mov $0x0A, %rcx # put 10 in rcx (bc we are dividing by 10)
 writeger:
