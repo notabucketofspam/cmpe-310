@@ -16,5 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="lab3.s" />
+    <None Include="report.html" />
   </ItemGroup>
 </Project>
