@@ -25,7 +25,7 @@ int main(int c, char** v) {
   int16_t* numbers = (int16_t*) calloc(total, sizeof(int16_t));
   size_t sauce = sizeof numbers;
   for (int i = 0; i < total; i++) {
-    fscanf(file, "%d ", &numbers[i]);
+    fscanf(file, "%hd ", &numbers[i]);
     int16_t num = numbers[i];
   }
 
