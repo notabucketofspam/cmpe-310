@@ -1,1 +1,4 @@
-labname=lab4&& gcc -no-pie -nostdlib $labname.s -o $labname&& ./$labname
+#!/bin/sh
+labname=lab4
+gcc -no-pie "$labname".s main.c -o "$labname"
+./"$labname"
