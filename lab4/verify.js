@@ -1,3 +1,4 @@
+#!/usr/bin/node
 const fs = require('node:fs');
 const datafile = fs.readFileSync('./data.txt',{encoding:'utf8'});
 /**@type{number[]} */
