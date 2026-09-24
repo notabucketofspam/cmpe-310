@@ -1,0 +1,1 @@
+labname=lab4&& gcc -no-pie -nostdlib $labname.s -o $labname&& ./$labname
