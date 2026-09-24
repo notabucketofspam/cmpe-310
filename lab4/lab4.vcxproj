@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="lab4.s" />
+    <None Include="readme.md" />
     <None Include="runme" />
     <None Include="shover.sh" />
     <None Include="verify.js" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt" />
+    <Text Include="data2.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

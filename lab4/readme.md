@@ -12,3 +12,5 @@ if you want to run it with different `data.txt` files:
 ```
 ./lab4 my_cool_data_file.txt
 ```
+
+there's also a `verify.js` file that you can run with nodejs, if you want to make sure that the math works out ok.

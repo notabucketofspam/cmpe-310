@@ -27,6 +27,9 @@
     <None Include="verify.js">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="readme.md">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -35,6 +38,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
+    <Text Include="data2.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>
