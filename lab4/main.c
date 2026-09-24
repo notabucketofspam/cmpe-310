@@ -18,15 +18,14 @@ int sum(void* rdi, void* rsi) {
 
 int main(int c, char** v) {
   FILE* file = fopen(v[1], "r");
-  int32_t total = 0;
-  fscanf(file, "%d ", &total);
-  printf("Total: %d\n", total);
+  int16_t total = 0;
+  fscanf(file, "%hd ", &total);
+  printf("Total: %hd\n", total);
 
   int16_t* numbers = (int16_t*) calloc(total, sizeof(int16_t));
   size_t sauce = sizeof numbers;
   for (int i = 0; i < total; i++) {
     fscanf(file, "%hd ", &numbers[i]);
-    int16_t num = numbers[i];
   }
 
   int result = sum(numbers, &total);

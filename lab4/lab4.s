@@ -10,11 +10,12 @@
 # assume that these are int16_t
 sum:
   xor %rax, %rax
+  movzwq (%rsi), %rcx
 top:
   addw (%rdi), %ax
   inc %rdi
   inc %rdi
-  dec %rsi
+  dec %rcx
   jnz top
   ret
 

@@ -1,4 +1,5 @@
 #!/bin/sh
 labname=lab4
 gcc -no-pie "$labname".s main.c -o "$labname"
-./"$labname"
+# valgrind -s ./"$labname" data.txt
+./"$labname" data.txt
