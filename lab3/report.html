@@ -3,34 +3,49 @@
 <HEAD>
   <link rel="stylesheet" type="text/css" href="https://waluigi-servebeer.com/css/great-scott.css">
   <TITLE>Lab 3 Report</TITLE>
-  <style>
-    h2 {
-      margin-bottom: 0;
-    }
+<style>
+h2 {
+  margin-bottom: 0;
+}
 
-    ul, ol {
-      margin: 0;
-    }
-    pre{
-    margin:0;
-    }
-    ol{
-      list-style-type:upper-roman;
-    }
-    ol ol {
-      list-style-type:lower-roman;
-    }
-  </style>
+ul, ol {
+  margin: 0;
+}
+pre{
+margin:0;
+}
+ol{
+  list-style-type:upper-roman;
+}
+ol ol {
+  list-style-type:lower-roman;
+}
+#someinfo{
+float:right;
+}
+
+	span.comment {
+		color: #008000;
+	}
+  div#the-main-stuff{
+  background-color:white;
+  }
+</style>
 </HEAD>
 <BODY>
 
-  <div class="sef lard">
+  <div class="sef lard" id="the-main-stuff">
+    <div id="someinfo">
+      <div id="mynameis"></div>
+      <div id="coursename"></div>
+      <div id="nowdate"></div>
+    </div>
     <h1>Lab 3 Report</h1>
 
     <div>
       <h2>Concept</h2>
       <div>
-        Alright, so here's the "high-level" overview for the program:
+        Here's the "high-level" overview for the program:
         <ol>
           <li>
             Zero some buffers
@@ -76,27 +91,129 @@
           <li>
             Hamming Distance
             <ol>
-              <!-- gotta fill this part out -->
+							<li>
+								Check to see if we have iterated enough times
+								<ul>
+                  <li>rbx holds the total number of bytes (the shorter of the two input strings)</li>
+                  <li>rcx holds the current byte index</li>
+                  <li>if we have, indeed, done our due iterating diligence, then... jump to the end</li>
+                </ul>
+							</li>
+              <li>
+                Read a byte from the first input string (which we saved in RAM)
+                <ul><li>We hold this in R8</li></ul>
+              </li>
+              <li>
+                Read a byte from input string #2 (this one is also in RAM)
+                <ul><li>Stored in r9</li></ul>
+              </li>
+							<li>
+								<code>xorq</code> these two bytes
+								<ul><li>The result goes into r9</li></ul>
+							</li>
+              <li>
+                <code>bsfr</code> on r9 and store the result in r10
+                <ul>
+                  <li>
+                    This is <q>Bit scan forward quad</q>;
+                    we need <code>q</code> because these registers are 64-bit.
+                  </li>
+                  <li>
+                    At this point, r10 holds the position of the bit that we found, if any.
+                    If no bit is found, then the zero flag is set.
+                  </li>
+                </ul>
+              </li>
+              <li>
+                If the zero flag is set, then that means that there are no 1's in this byte.
+                <ul>
+                  <li>in that case, we need to increment the byte index counter (rcx)
+                  and jump back to the very top of the Hamming Distance loop.</li>
+                </ul>
+              </li>
+              <li>
+                If the zero flag isn't set, then...
+                <ul>
+                  <li>We increment our accumulator</li>
+                  <li>
+                    <code>btrq</code> is <q>bit test and reset quad</q>; using r10,
+                    this'll reset the bit that we found in r9 (we don't care about the test result here)
+                  </li>
+                  <li>Jump back to the top of the loop for scanning this specific byte</li>
+                </ul>
+              </li>
+              <li>At the end of it all, store the accumulated value in RAM</li>
             </ol>
+          </li>
+          <li>
+            Printing the result
+            <ol>
+              <li>Read the value from RAM</li>
+              <li>
+                Divide it by ten, convert it to ascii, store it in an output buffer.
+                <ul><li>Do this several times.</li></ul>
+              </li>
+              <li>Do some more syscall things to print it out.</li>
+            </ol>
+          </li>
+          <li>Quit</li>
+        </ol>
+      </div>
+      <h2>Explain</h2>
+      <div>
+        <ol>
+          <li>
+            Is this optimal?
+            <ol>
+              <li>Not really. Using <code>popcount</code> would have been faster.</li>
+              <li>Also, I had to copy-paste the same syscall code at least a half-dozen times.</li>
+            </ol>
+          </li>
+          <li>
+            How did I come up with this?
+            <ol><li>I paid attention to the powerpoint slides.</li></ol>
           </li>
         </ol>
       </div>
-      <h2> Source Code</h2>
+      <h2>Source Code</h2>
       <pre id="source-code"></pre>
+      <h2>Screenshot</h2>
+      <div>
+        <img alt="The code working as intended" src="the-screenshot.png" class="sef">
+      </div>
     </div>
 
   </div>
   <script>
-var github_link = "https://raw.githubusercontent.com/notabucketofspam/cmpe-310/refs/heads/main/lab3/lab3.s";
-fetch(github_link)
-.then(response => response.text())
-.then(data => {
-  var source_code = document.getElementById("source-code");
+
+async function someAsyncStuff() {
+  const github_link = "/cmpe/lab3/lab3.s";
+  const response = await fetch(github_link);
+  const data = await response.text();
+  const source_code = document.getElementById("source-code");
   if (source_code) {
-		let tabless = data.replace(/\t/g, '  ');
-    source_code.textContent = tabless;
+    const tabless = data.replace(/\t/g, '  ').trimEnd();
+    const greener = tabless.replaceAll(/#(.*)?\n/g, `<span class="comment">#$1</span>\n`);
+
+    source_code.innerHTML = greener;
   }
-});
+  const infolink = "/nonce/info.json";
+	const info_response = await fetch(infolink);
+	const info_data = await info_response.json();
+	const mynameis = document.getElementById("mynameis");
+	if (mynameis) {
+		mynameis.textContent = info_data.name;
+	}
+	const coursename = document.getElementById("coursename");
+	if (coursename) {
+		coursename.textContent = info_data.course;
+	}
+	const nowdate = document.getElementById("nowdate");
+	if (nowdate) {
+		nowdate.textContent = new Date().toLocaleDateString();
+	}
+}
+someAsyncStuff();
   </script>
 </BODY>
 </HTML>
