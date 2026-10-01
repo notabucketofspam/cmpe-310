@@ -21,6 +21,10 @@
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
+  <Project Path="lab5/lab5.vcxproj" Id="9c392e0a-5f1d-4d0e-873b-6e9b72963bd8">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
   <Project Path="lent/lent.vcxproj" Id="2c0a0ccf-894b-48f8-ad2d-a177116393e0">
     <Platform Solution="*|ARM" Project="x64" />
     <Platform Solution="*|ARM64" Project="x64" />

@@ -1,0 +1,9 @@
+#!/bin/sh
+labname=lab5
+gcc -O0 -S -m32 helloworld.c -o "$labname"_ia.s
+gcc -O4 -S helloworld.c -o "$labname"_ib.s
+
+gcc -O0 -S -m32 helloworld_ii.cpp -o "$labname"_iia.s
+gcc -O4 -S helloworld_ii.cpp -o "$labname"_iib.s
+
+#./"$labname"
