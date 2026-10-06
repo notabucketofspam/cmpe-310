@@ -1,7 +1,7 @@
 #!/bin/sh
 labname=lab5
-gcc -O0 -S -m32 helloworld.c -o "$labname"_ia.s
-gcc -O4 -S -m32 helloworld.c -o "$labname"_ib.s
+gcc -O0 -S -m32 part_i.c -o "$labname"_ia.s
+gcc -O4 -S -m32 part_i.c -o "$labname"_ib.s
 diff --side-by-side --tabsize=2 --expand-tabs --minimal lab5_ia.s lab5_ib.s>lab5_i.diff
 
 gcc -O0 -S -m32 helloworld_ii.cpp -o "$labname"_iia.s
