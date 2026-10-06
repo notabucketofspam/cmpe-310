@@ -1,9 +1,13 @@
 #!/bin/sh
 labname=lab5
 gcc -O0 -S -m32 helloworld.c -o "$labname"_ia.s
-gcc -O4 -S helloworld.c -o "$labname"_ib.s
+gcc -O4 -S -m32 helloworld.c -o "$labname"_ib.s
+diff --side-by-side --tabsize=2 --expand-tabs --minimal lab5_ia.s lab5_ib.s>lab5_i.diff
 
 gcc -O0 -S -m32 helloworld_ii.cpp -o "$labname"_iia.s
-gcc -O4 -S helloworld_ii.cpp -o "$labname"_iib.s
+gcc -O4 -S -m32 helloworld_ii.cpp -o "$labname"_iib.s
+diff --side-by-side --tabsize=2 --expand-tabs --minimal lab5_iia.s lab5_iib.s>lab5_ii.diff
+
+gcc -O0 -S -m32 while.c -o "$labname"_iii.s
 
 #./"$labname"
