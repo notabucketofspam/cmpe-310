@@ -24,6 +24,7 @@ my $iib_hwpart = `grep --text -E --context=6 "LC0" $lab-iib.s`;
 
 # using c generated assembly to find code structures
 `gcc -O0 -S -m32 while.c -o $lab-iii.s`;
+my $iii_full = `cat $lab-iii.s`;
 
 my $report =<<EOF;
 Lab data
@@ -55,6 +56,10 @@ The "Hello World" part:
 $iib_hwpart
 ==============================
 Part III
+
+The full assembly code:
+$iii_full
+==========
 
 EOF
 
