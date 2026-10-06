@@ -139,12 +139,15 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="docgen.pl" />
+    <None Include="max.s" />
     <None Include="readme.md" />
     <None Include="runme" />
     <None Include="shover.sh" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="helloworld.c" />
+    <ClCompile Include="helloworld_i.c" />
+    <ClCompile Include="part_i.c" />
     <ClCompile Include="helloworld_ii.cpp" />
     <ClCompile Include="while.c" />
   </ItemGroup>

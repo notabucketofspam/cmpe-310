@@ -15,13 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="helloworld.c">
+    <ClCompile Include="part_i.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="helloworld_ii.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="while.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="helloworld_i.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -34,6 +37,12 @@
     </None>
     <None Include="shover.sh">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="docgen.pl">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="max.s">
+      <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
 </Project>
