@@ -1,28 +1,3 @@
 #!/bin/sh
-labname=lab5
-echo "Lab data">"$labname".txt
 
-# optimized vs unoptimized
-echo "\nPart I">>"$labname".txt
-gcc -O0 -S -m32 part_i.c -o "$labname"_ia.s
-gcc -O4 -S -m32 part_i.c -o "$labname"_ib.s
-diff --side-by-side --tabsize=2 --expand-tabs --minimal "$labname"_ia.s "$labname"_ib.s>>"$labname".txt
-
-# comparing c and cpp
-echo "\nPart II">>"$labname".txt
-gcc -O0 -S -m32 helloworld_i.c -o "$labname"_iia.s
-gcc -O0 -S -m32 helloworld_ii.cpp -o "$labname"_iib.s
-
-echo "the c file">>"$labname".txt
-echo "Size: $(stat --format=%s "$labname"_iia.s)">>"$labname".txt
-echo "Lines: $(grep --count -E \"^\" "$labname"_iia.s)">>"$labname".txt
-echo "The \"Hello World\" part:">>"$labname".txt
-grep --text -E --context=6 "Hello World" "$labname"_iia.s>>"$labname".txt
-
-echo "\nthe cpp file">>"$labname".txt
-grep --text -E --context=6 "Hello World" "$labname"_iib.s>>"$labname".txt
-echo "Lines: $(grep --count -E \"^\" "$labname"_iib.s)">>"$labname".txt
-
-gcc -O0 -S -m32 while.c -o "$labname"_iii.s
-
-#./"$labname"
+perl ./docgen.pl
