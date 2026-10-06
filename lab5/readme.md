@@ -3,5 +3,5 @@
 ## How to run this lab
 
 ```
-./runme
+./docgen.pl
 ```
