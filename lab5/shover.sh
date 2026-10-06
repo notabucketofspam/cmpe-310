@@ -2,6 +2,6 @@
 cd ..
 ./push.sh
 labname=lab5
-ssh brick_wg0 "cd /home/brick/cmpe-310/$labname&& chmod +x runme&& ./runme"
+ssh oci2 "cd /home/opc/cmpe-310/$labname&& chmod +x runme&& ./runme"
 echo "DONE"
 sleep 10
