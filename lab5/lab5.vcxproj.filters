@@ -44,5 +44,17 @@
     <None Include="max.s">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="grabber.bat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="run-max.sh">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shover_max.sh">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include=".gitignore">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

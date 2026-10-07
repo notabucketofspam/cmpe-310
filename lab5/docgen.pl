@@ -24,43 +24,45 @@ my $iib_hwpart = `grep --text -E --context=6 "LC0" $lab-iib.s`;
 
 # using c generated assembly to find code structures
 `gcc -O0 -S -m32 while.c -o $lab-iii.s`;
-my $iii_full = `cat $lab-iii.s`;
+my $iii_loop = `grep --text -E --context=5 "cmpl" $lab-iii.s`;
+my $iii_max = `cat max.s`;
+`gcc -no-pie -nostdlib max.s -o "max"`;
+my $iii_max_output = `./max`;
 
 my $report =<<EOF;
-Lab data
-
-==============================
 Part I
 
 Unoptimized assembly:
 $ia_full
-~~~~~
+~~~~~~~~~~~~~~
 Optimized assembly:
 $ib_full
-~~~~~
+~~~~~~~~~~~~~~
 A summary of their differences:
 $i_diff
 ==============================
 Part II
 
 the C file:
-Size: $iia_size
-Lines: $iia_lines
+Size: ${iia_size}Lines: $iia_lines
 The "Hello World" part:
 $iia_hwpart
-==========
+~~~~~~~~~
 the C++ file:
-Size: $iib_size
-Lines: $iib_lines
+Size: ${iib_size}Lines: $iib_lines
 The "Hello World" part:
 $iib_hwpart
 ==============================
 Part III
 
-The full assembly code:
-$iii_full
-==========
-
+The relevant assembly code:
+$iii_loop
+~~~~~~~~~
+The max.s file:
+$iii_max
+~~~~~~~~~
+What's the biggest number?
+$iii_max_output
 EOF
 
 say $report;
