@@ -65,7 +65,6 @@ too_small:
 	jg readme
 
 # writing it
-
 	mov $output_str, %rdi # pointer for the string
 	add $0x6, %rdi # move the pointer to the end of the string
 	mov %rdi, %rsi # put it here

@@ -56,5 +56,8 @@
     <None Include=".gitignore">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="report.html">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

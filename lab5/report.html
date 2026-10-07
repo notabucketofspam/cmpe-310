@@ -1,0 +1,144 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+	<link rel="stylesheet" type="text/css" href="https://waluigi-servebeer.com/css/great-scott.css">
+	<TITLE>Lab 5 Report</TITLE>
+	<style>
+		body {
+			margin-left: 0px;
+			margin-right: 0px;
+		}
+
+		h2 {
+			margin-bottom: 0;
+		}
+
+		ul, ol {
+			margin: 0;
+		}
+
+		pre {
+			margin: 0;
+		}
+
+		ol {
+			list-style-type: upper-roman;
+		}
+
+			ol ol {
+				list-style-type: lower-roman;
+			}
+
+		#someinfo {
+			float: right;
+		}
+
+		span.comment {
+			color: #008000;
+		}
+
+		div#the-main-stuff {
+			background-color: white;
+		}
+	</style>
+</HEAD>
+<BODY>
+
+	<div class="sef lard" id="the-main-stuff">
+		<div id="someinfo">
+			<div id="mynameis"></div>
+			<div id="coursename"></div>
+			<div id="nowdate"></div>
+		</div>
+		<h1>Lab 5 Report</h1>
+
+		<div id="the-whole-thing">
+			<h2>Answering some questions</h2>
+			<ul>
+				<li>
+					Questions for Part IA:
+					<ol>
+						<li>Yes. I recognize some of the "C structures" in the assembly.</li>
+						<li><code>movl	a, %eax</code> and <code>movl	%eax, a</code> in assembly represent <code>a = a;</code> in C</li>
+					</ol>
+				</li>
+				<li>
+					Questions for Part IB:
+					<ol>
+						<li>
+							The code portion is practically missing.
+							<code>main</code> is reduced to basically one instruction (<code>xorl	%eax, %eax</code>),
+							and then it returns.
+						</li>
+						<li>
+							The variables in the data portion get a little bit rearranged.
+							In fact, it looks like everything in the assembly is listed in reverse order. I have no idea why.
+							Other than that, the data portion looks like it's mostly the same.
+						</li>
+					</ol>
+				</li>
+				<li>
+					Questions for Part II:
+					<ol>
+						<li>The C file assembly is 659 bytes and 38 lines.</li>
+						<li>The C++ file assembly is 6773 bytes and 351 lines.</li>
+						<li>
+							The C++ generated code is probably larger because the source file is larger.
+							Plus, the C++ source file uses some complex structures (class, member function, constructor, namespace),
+							which are inherently absent in C.
+						</li>
+						<li>
+							<ol style="list-style-type: lower-alpha;">
+								<li>They're probably equally robust, to be honest. It just comes down to the use case.</li>
+								<li>
+									Neither of them is future-proof because we're using linux.
+									Try running either of these on a modern Red Hat distro and see what happens :^)
+								</li>
+								<li>
+									They're probably both going to run at about the same speed. What matters more is
+									<em>maintainability</em>, and, to that end, the C++ version probably wins.
+								</li>
+							</ol>
+						</li>
+					</ol>
+				</li>
+			</ul>
+			<h2>The Report</h2>
+			<pre id="the-report"></pre>
+		</div>
+
+	</div>
+	<script>
+
+async function someAsyncStuff() {
+							const report_txt = "/cmpe/lab5/report.txt";
+							const response = await fetch(report_txt);
+							const data = await response.text();
+							const the_report = document.getElementById("the-report");
+							if (the_report) {
+								// const tabless = data.replace(/\t/g, '  ').trimEnd();
+								const tabless = data.trimEnd();
+								const greener = tabless.replaceAll(/#(.*)?\n/g, `<span class="comment">#$1</span>\n`);
+
+								the_report.innerHTML = greener;
+							}
+							const infolink = "/nonce/info.json";
+							const info_response = await fetch(infolink);
+							const info_data = await info_response.json();
+							const mynameis = document.getElementById("mynameis");
+							if (mynameis) {
+								mynameis.textContent = info_data.name;
+							}
+							const coursename = document.getElementById("coursename");
+							if (coursename) {
+								coursename.textContent = info_data.course;
+							}
+							const nowdate = document.getElementById("nowdate");
+							if (nowdate) {
+								nowdate.textContent = new Date().toLocaleDateString();
+							}
+}
+someAsyncStuff();
+	</script>
+</BODY>
+</HTML>

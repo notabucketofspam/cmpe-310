@@ -30,6 +30,7 @@ my $iii_max = `cat max.s`;
 my $iii_max_output = `./max`;
 
 my $report =<<EOF;
+==============================
 Part I
 
 Unoptimized assembly:
@@ -44,13 +45,11 @@ $i_diff
 Part II
 
 the C file:
-Size: ${iia_size}Lines: $iia_lines
-The "Hello World" part:
+Size: ${iia_size}Lines: ${iia_lines}The "Hello World" part:
 $iia_hwpart
 ~~~~~~~~~
 the C++ file:
-Size: ${iib_size}Lines: $iib_lines
-The "Hello World" part:
+Size: ${iib_size}Lines: ${iib_lines}The "Hello World" part:
 $iib_hwpart
 ==============================
 Part III

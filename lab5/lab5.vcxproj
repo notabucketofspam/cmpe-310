@@ -144,6 +144,7 @@
     <None Include="grabber.bat" />
     <None Include="max.s" />
     <None Include="readme.md" />
+    <None Include="report.html" />
     <None Include="run-max.sh" />
     <None Include="runme" />
     <None Include="shover.sh" />
