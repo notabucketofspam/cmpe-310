@@ -1,5 +1,5 @@
 # CMPE-310
 
-There is no lab1.
+There is no `lab1`.
 
 Perchance.
