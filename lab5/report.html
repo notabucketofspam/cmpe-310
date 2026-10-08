@@ -91,8 +91,9 @@
 							<ol style="list-style-type: lower-alpha;">
 								<li>They're probably equally robust, to be honest. It just comes down to the use case.</li>
 								<li>
-									Neither of them is future-proof because we're using linux.
-									Try running either of these on a modern Red Hat distro and see what happens :^)
+									Neither of them is future-proof because we're using Linux.
+									Try compiling either of these on a modern Red Hat distro and see what happens :^)<br />
+									(Hint: it won't compile because of the -m32 flag)
 								</li>
 								<li>
 									They're probably both going to run at about the same speed. What matters more is
@@ -111,32 +112,32 @@
 	<script>
 
 async function someAsyncStuff() {
-							const report_txt = "/cmpe/lab5/report.txt";
-							const response = await fetch(report_txt);
-							const data = await response.text();
-							const the_report = document.getElementById("the-report");
-							if (the_report) {
-								// const tabless = data.replace(/\t/g, '  ').trimEnd();
-								const tabless = data.trimEnd();
-								const greener = tabless.replaceAll(/#(.*)?\n/g, `<span class="comment">#$1</span>\n`);
+	const report_txt = "/cmpe/lab5/report.txt";
+	const response = await fetch(report_txt);
+	const data = await response.text();
+	const the_report = document.getElementById("the-report");
+	if (the_report) {
+		// const tabless = data.replace(/\t/g, '  ').trimEnd();
+		const tabless = data.trimEnd();
+		const greener = tabless.replaceAll(/#(.*)?\n/g, `<span class="comment">#$1</span>\n`);
 
-								the_report.innerHTML = greener;
-							}
-							const infolink = "/nonce/info.json";
-							const info_response = await fetch(infolink);
-							const info_data = await info_response.json();
-							const mynameis = document.getElementById("mynameis");
-							if (mynameis) {
-								mynameis.textContent = info_data.name;
-							}
-							const coursename = document.getElementById("coursename");
-							if (coursename) {
-								coursename.textContent = info_data.course;
-							}
-							const nowdate = document.getElementById("nowdate");
-							if (nowdate) {
-								nowdate.textContent = new Date().toLocaleDateString();
-							}
+		the_report.innerHTML = greener;
+	}
+	const infolink = "/nonce/info.json";
+	const info_response = await fetch(infolink);
+	const info_data = await info_response.json();
+	const mynameis = document.getElementById("mynameis");
+	if (mynameis) {
+		mynameis.textContent = info_data.name;
+	}
+	const coursename = document.getElementById("coursename");
+	if (coursename) {
+		coursename.textContent = info_data.course;
+	}
+	const nowdate = document.getElementById("nowdate");
+	if (nowdate) {
+		nowdate.textContent = new Date().toLocaleDateString();
+	}
 }
 someAsyncStuff();
 	</script>

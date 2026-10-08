@@ -33,10 +33,10 @@ my $report =<<EOF;
 ==============================
 Part I
 
-Unoptimized assembly:
+Assignment Part IA Code (unoptimized):
 $ia_full
 ~~~~~~~~~~~~~~
-Optimized assembly:
+Assignment Part IB Code (optimized):
 $ib_full
 ~~~~~~~~~~~~~~
 A summary of their differences:
