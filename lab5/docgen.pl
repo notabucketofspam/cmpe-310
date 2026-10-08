@@ -30,38 +30,29 @@ my $iii_max = `cat max.s`;
 my $iii_max_output = `./max`;
 
 my $report =<<EOF;
-==============================
-Part I
-
+<h3>Part I</h3>
 Assignment Part IA Code (unoptimized):
-$ia_full
-~~~~~~~~~~~~~~
+<span class="att">$ia_full</span>
 Assignment Part IB Code (optimized):
-$ib_full
-~~~~~~~~~~~~~~
-A summary of their differences:
-$i_diff
-==============================
-Part II
-
-the C file:
+<span class="att">$ib_full</span>
+Comparing unoptimized (left) and optimized (right):
+<span class="att">$i_diff</span>
+<hr/>
+<h3>Part II</h3>
+1. the C file:
 Size: ${iia_size}Lines: ${iia_lines}The "Hello World" part:
-$iia_hwpart
-~~~~~~~~~
-the C++ file:
+<span class="att">$iia_hwpart</span>
+2. the C++ file:
 Size: ${iib_size}Lines: ${iib_lines}The "Hello World" part:
-$iib_hwpart
-==============================
-Part III
-
-The relevant assembly code:
-$iii_loop
-~~~~~~~~~
-The max.s file:
-$iii_max
-~~~~~~~~~
+<span class="att">$iib_hwpart</span>
+<hr/>
+<h3>Part III</h3>
+1. The relevant assembly code for the while loop:
+<span class="att">$iii_loop</span>
+2. The max.s file:
+<span class="att">$iii_max</span>
 What's the biggest number?
-$iii_max_output
+<span class="att">$iii_max_output</span>
 EOF
 
 say $report;

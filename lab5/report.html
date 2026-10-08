@@ -22,11 +22,11 @@
 		}
 
 		ol {
-			list-style-type: upper-roman;
+			list-style-type: decimal;
 		}
 
 			ol ol {
-				list-style-type: lower-roman;
+				list-style-type: lower-alpha;
 			}
 
 		#someinfo {
@@ -39,6 +39,18 @@
 
 		div#the-main-stuff {
 			background-color: white;
+		}
+		span.att {
+			background-color: #f2f2f2;
+			display:block;
+			font-family:monospace;
+			white-space:pre;
+		}
+		#the-report {
+			font-family: unset;
+		}
+		h3 {
+			margin: 0;
 		}
 	</style>
 </HEAD>
@@ -53,13 +65,20 @@
 		<h1>Lab 5 Report</h1>
 
 		<div id="the-whole-thing">
-			<h2>Answering some questions</h2>
+			<h2>Answering some questions:</h2>
 			<ul>
 				<li>
 					Questions for Part IA:
 					<ol>
-						<li>Yes. I recognize some of the "C structures" in the assembly.</li>
-						<li><code>movl	a, %eax</code> and <code>movl	%eax, a</code> in assembly represent <code>a = a;</code> in C</li>
+						<li>Yes. I recognize some of the "C structures" in the assembly. Specifically,
+						the variables are all (mostly) recognizable.</li>
+						<li>What is happening:
+							<ul>
+								<li><code>movl	a, %eax</code> and <code>movl	%eax, a</code> in assembly represent <code>a = a;</code> in C.</li>
+								<li><code>addl	$1, -4(%ebp)</code> is the <code>i++</code> part from C.</li>
+								<li><code>cmpl	$9, -4(%ebp)</code> and <code>jle	.L3</code> are the <code>i&lt;10;</code> part in C.</li>
+							</ul>
+						</li>
 					</ol>
 				</li>
 				<li>
@@ -80,20 +99,20 @@
 				<li>
 					Questions for Part II:
 					<ol>
-						<li>The C file assembly is 659 bytes and 38 lines.</li>
-						<li>The C++ file assembly is 6773 bytes and 351 lines.</li>
+						<li>The C file assembly is <u>659 bytes</u> and <u>38 lines</u>.</li>
+						<li>The C++ file assembly is <u>6773 bytes</u> and <u>351 lines</u>.</li>
 						<li>
 							The C++ generated code is probably larger because the source file is larger.
 							Plus, the C++ source file uses some complex structures (class, member function, constructor, namespace),
 							which are inherently absent in C.
 						</li>
-						<li>
+						<li>Comparing C++ to C:
 							<ol style="list-style-type: lower-alpha;">
 								<li>They're probably equally robust, to be honest. It just comes down to the use case.</li>
 								<li>
 									Neither of them is future-proof because we're using Linux.
 									Try compiling either of these on a modern Red Hat distro and see what happens :^)<br />
-									(Hint: it won't compile because of the -m32 flag)
+									(Hint: it won't compile because of the <code>-m32</code> flag)
 								</li>
 								<li>
 									They're probably both going to run at about the same speed. What matters more is
@@ -103,8 +122,26 @@
 						</li>
 					</ol>
 				</li>
+				<li>
+					Questions for Part III:
+					<ol>
+						<li>
+							Here's how the while loop works:
+							<ul>
+								<li>Set a value of 1 for the long stored on the stack at offset -12</li>
+								<li>Jump to the comparison part</li>
+								<li>(this is the top of the loop)</li>
+								<li>Add 1 to said long</li>
+								<li>(this is the comparison part)</li>
+								<li>Compare ten (10) with said long</li>
+								<li>If said long is less than or equal to 10, jump back to the top of the loop</li>
+							</ul>
+						</li>
+						<li>The code for "finding the max value" is included near the bottom of the report.</li>
+					</ol>
+				</li>
 			</ul>
-			<h2>The Report</h2>
+			<h2>Some code for the questions:</h2>
 			<pre id="the-report"></pre>
 		</div>
 

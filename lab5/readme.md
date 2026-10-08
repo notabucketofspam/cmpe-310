@@ -3,5 +3,9 @@
 ## How to run this lab
 
 ```
-./docgen.pl
+perl ./docgen.pl
 ```
+
+---
+
+look both ways before crossing the street.
