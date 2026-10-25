@@ -1,4 +1,12 @@
-function(add_avr_firmware TARGET_NAME MCU UPLOAD_PORT ARDUINO_VARIANT ARDUINO_MACRO PROGRAMMER)
+function(add_avr_firmware TARGET_NAME MCU ARDUINO_VARIANT ARDUINO_MACRO PROGRAMMER)
+  set(PORT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/port.txt")
+  if(EXISTS "${PORT_FILE}")
+    file(READ "${PORT_FILE}" UPLOAD_PORT)
+    string(STRIP "${UPLOAD_PORT}" UPLOAD_PORT)
+  else()
+    set(UPLOAD_PORT "COM3")
+  endif()
+
   set(F_CPU "16000000UL")
 
   add_compile_options(
@@ -37,7 +45,7 @@ function(add_avr_firmware TARGET_NAME MCU UPLOAD_PORT ARDUINO_VARIANT ARDUINO_MA
     COMMENT "Generating ${TARGET_NAME}.hex and checking memory usage..."
   )
 
-  add_custom_target(upload_${TARGET_NAME}
+  add_custom_target(upload
     COMMAND avrdude -p ${MCU} -c ${PROGRAMMER} -P ${UPLOAD_PORT} -b 115200 -D -U flash:w:${TARGET_NAME}.hex:i
     DEPENDS ${TARGET_NAME}.elf
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}

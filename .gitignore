@@ -10,3 +10,5 @@ bin/
 Debug/
 
 out/
+port.txt
+session-state/

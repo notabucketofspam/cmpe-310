@@ -18,33 +18,25 @@
       }
     },
     {
-      "name": "lab6",
+      "name": "active-lab",
       "inherits": "avr-base",
-      "displayName": "lab6",
+      "displayName": "Active Lab (Change via CMake Cache)",
       "cacheVariables": {
         "TARGET_LAB": "lab6"
-      }
-    },
-    {
-      "name": "lab7",
-      "inherits": "avr-base",
-      "displayName": "lab7",
-      "cacheVariables": {
-        "TARGET_LAB": "lab7"
       }
     }
   ],
   "buildPresets": [
     {
-      "name": "build-lab6",
-      "configurePreset": "lab6",
-      "displayName": "Build lab6"
+      "name": "build-active",
+      "configurePreset": "active-lab",
+      "displayName": "Build Active Lab"
     },
     {
-      "name": "flash-lab6",
-      "configurePreset": "lab6",
-      "displayName": "Flash lab6",
-      "targets": [ "upload_lab6" ]
+      "name": "flash-active",
+      "configurePreset": "active-lab",
+      "displayName": "Flash Active Lab",
+      "targets": [ "upload" ]
     }
   ]
 }
