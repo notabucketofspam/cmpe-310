@@ -1,0 +1,35 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "lab6",
+      "displayName": "lab6",
+      "description": "this is lab6",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/out/build/${presetName}",
+      "toolchainFile": "${sourceDir}/lab6/avr.toolchain.cmake",
+      "cacheVariables": {
+        "TARGET_LAB": "lab6",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "vendor": {
+        "microsoft.com/VisualStudioSettings/CMake/1.0": {
+          "intelliSenseMode": "linux-gcc-arm"
+        }
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "build-lab6",
+      "displayName": "Build lab6 Firmware (.hex)",
+      "configurePreset": "lab6"
+    },
+    {
+      "name": "flash-lab6",
+      "displayName": "Flash lab6 via avrdude (upload)",
+      "configurePreset": "lab6",
+      "targets": [ "upload" ]
+    }
+  ]
+}

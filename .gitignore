@@ -8,3 +8,5 @@ obj/
 x64/
 bin/
 Debug/
+
+out/

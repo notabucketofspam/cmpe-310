@@ -1,0 +1,30 @@
+# lab6
+
+A lot of this was copy-pasted from [celery](https://github.com/notabucketofspam/celery), so im working on a way to streamline it.
+
+computer software that you need to download and then put in your system `path`:
+- [the avr-gcc toolchain](https://www.microchip.com/en-us/tools-resources/develop/microchip-studio/gcc-compilers)
+  - on the path, it should look more-or-less like `C:\opt\atmel\avr8-gnu-toolchain\bin`
+  - at least, that's what the cmake project right here assumes
+- [avrdude](https://github.com/avrdudes/avrdude)
+  - on the path, it's `C:\opt\atmel`
+  - the `windows_mingw-x64` build seems to work well enough.
+- you can get to the **"Edit Environment Variables"** window super quickly with `C:\Windows\System32\rundll32.exe sysdm.cpl,EditEnvironmentVariables`
+  - and you can put this into a shortcut, too.
+
+other source files that you need to download and then put in the `lib` folder:
+- [the `lib` folder is right here btw](./lib)
+- [AccelStepper](https://www.airspayce.com/mikem/arduino/AccelStepper/)
+  - the folder name can stay as `AccelStepper`. just make sure you extract it, pal.
+- [ArduinoCore-avr](https://github.com/arduino/arduinocore-avr)
+  - gotta extract and then rename the folder to `arduino_core`
+
+## How do I build the part with the Arduino Mega?
+
+**IMPORTANT**: go into [`CMakeLists.txt`](./CMakeLists.txt) and change the upload port to match the actual COM port for the Arduino Mega on your pc.
+
+- basically the same steps, but it's the **"Local Machine"** option instead
+- and then in the other dropdown, it's the **"Build AVR Firmware (.hex)"**
+- `ctrl + shift + b`
+- after that, you can use the **"Flash AVR via avrdude (upload)"** option and 
+`ctrl + shift + b` again to actually flash it.
