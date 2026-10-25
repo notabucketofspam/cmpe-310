@@ -12,19 +12,14 @@ computer software that you need to download and then put in your system `path`:
 - you can get to the **"Edit Environment Variables"** window super quickly with `C:\Windows\System32\rundll32.exe sysdm.cpl,EditEnvironmentVariables`
   - and you can put this into a shortcut, too.
 
-other source files that you need to download and then put in the `lib` folder:
-- [the `lib` folder is right here btw](./lib)
-- [AccelStepper](https://www.airspayce.com/mikem/arduino/AccelStepper/)
-  - the folder name can stay as `AccelStepper`. just make sure you extract it, pal.
-- [ArduinoCore-avr](https://github.com/arduino/arduinocore-avr)
-  - gotta extract and then rename the folder to `arduino_core`
+other source files that you need to download:
+- [ArduinoCore-avr](https://github.com/arduino/ArduinoCore-avr)
+  - this one ends up as `C:\opt\atmel\ArduinoCore-avr`
 
-## How do I build the part with the Arduino Mega?
+## How do I build /flash?
 
-**IMPORTANT**: go into [`CMakeLists.txt`](./CMakeLists.txt) and change the upload port to match the actual COM port for the Arduino Mega on your pc.
+**IMPORTANT**: in the specific project folder, you need to make a `port.txt` file, and this needs to have in it the port that you want to flash to.
 
-- basically the same steps, but it's the **"Local Machine"** option instead
-- and then in the other dropdown, it's the **"Build AVR Firmware (.hex)"**
-- `ctrl + shift + b`
-- after that, you can use the **"Flash AVR via avrdude (upload)"** option and 
-`ctrl + shift + b` again to actually flash it.
+- `CMake Targets View` in the Solution Explorer.
+- click the `upload` for the project
+- it'll build and flash
