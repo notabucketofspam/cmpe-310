@@ -1,15 +1,14 @@
 cmake_minimum_required(VERSION 3.19)
+project(LabWorkspace LANGUAGES C CXX ASM)
+
+# Include the shared AVR helpers
+include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/avr.help.cmake)
 
 set(TARGET_LAB "lab6" CACHE STRING "Select target lab")
 
-project(LabWorkspace LANGUAGES C CXX ASM)
-
-if(TARGET_LAB STREQUAL "lab6")
-    message(STATUS "[Workspace] this is lab6...")
-    add_subdirectory(lab6)
-elseif(TARGET_LAB STREQUAL "lab7")
-    message(STATUS "[Workspace] this is lab7...")
-    add_subdirectory(lab7)
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${TARGET_LAB}")
+    message(STATUS "[Workspace] Loading ${TARGET_LAB}...")
+    add_subdirectory(${TARGET_LAB})
 else()
-    message(FATAL_ERROR "Unknown TARGET_LAB: ${TARGET_LAB}")
+    message(FATAL_ERROR "Directory ${TARGET_LAB} does not exist!")
 endif()

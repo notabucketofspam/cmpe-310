@@ -2,34 +2,49 @@
   "version": 3,
   "configurePresets": [
     {
-      "name": "lab6",
-      "displayName": "lab6",
-      "description": "this is lab6",
+      "name": "avr-base",
+      "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
-      "toolchainFile": "${sourceDir}/lab6/avr.toolchain.cmake",
+      "toolchainFile": "${sourceDir}/cmake/avr.toolchain.cmake",
       "cacheVariables": {
-        "TARGET_LAB": "lab6",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "ARDUINO_CORE_DIR": "C:/opt/atmel/ArduinoCore-avr"
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {
           "intelliSenseMode": "linux-gcc-arm"
         }
       }
+    },
+    {
+      "name": "lab6",
+      "inherits": "avr-base",
+      "displayName": "lab6",
+      "cacheVariables": {
+        "TARGET_LAB": "lab6"
+      }
+    },
+    {
+      "name": "lab7",
+      "inherits": "avr-base",
+      "displayName": "lab7",
+      "cacheVariables": {
+        "TARGET_LAB": "lab7"
+      }
     }
   ],
   "buildPresets": [
     {
       "name": "build-lab6",
-      "displayName": "Build lab6 Firmware (.hex)",
-      "configurePreset": "lab6"
+      "configurePreset": "lab6",
+      "displayName": "Build lab6"
     },
     {
       "name": "flash-lab6",
-      "displayName": "Flash lab6 via avrdude (upload)",
       "configurePreset": "lab6",
-      "targets": [ "upload" ]
+      "displayName": "Flash lab6",
+      "targets": [ "upload_lab6" ]
     }
   ]
 }
