@@ -1,3 +1,4 @@
+#undef __INT24_MAX__
 #include <Arduino.h>
 #include <avr/io.h>
 #include <stdlib.h>
