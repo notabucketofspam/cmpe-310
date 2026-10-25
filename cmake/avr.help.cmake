@@ -45,7 +45,7 @@ function(add_avr_firmware TARGET_NAME MCU ARDUINO_VARIANT ARDUINO_MACRO PROGRAMM
     COMMENT "Generating ${TARGET_NAME}.hex and checking memory usage..."
   )
 
-  add_custom_target(upload
+  add_custom_target(upload_${TARGET_NAME}
     COMMAND avrdude -p ${MCU} -c ${PROGRAMMER} -P ${UPLOAD_PORT} -b 115200 -D -U flash:w:${TARGET_NAME}.hex:i
     DEPENDS ${TARGET_NAME}.elf
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}

@@ -3,7 +3,7 @@
   "configurePresets": [
     {
       "name": "avr-base",
-      "hidden": true,
+      "displayName": "AVR Workspace",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/out/build/${presetName}",
       "toolchainFile": "${sourceDir}/cmake/avr.toolchain.cmake",
@@ -16,27 +16,6 @@
           "intelliSenseMode": "linux-gcc-arm"
         }
       }
-    },
-    {
-      "name": "active-proj",
-      "inherits": "avr-base",
-      "displayName": "Active Project (Change via CMake Cache)",
-      "cacheVariables": {
-        "TARGET_PROJ": "lab6"
-      }
-    }
-  ],
-  "buildPresets": [
-    {
-      "name": "build-active",
-      "configurePreset": "active-proj",
-      "displayName": "Build Active Project"
-    },
-    {
-      "name": "flash-active",
-      "configurePreset": "active-proj",
-      "displayName": "Flash Active Project",
-      "targets": [ "upload" ]
     }
   ]
 }
