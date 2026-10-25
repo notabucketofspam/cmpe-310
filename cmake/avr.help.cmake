@@ -36,7 +36,7 @@ function(add_avr_firmware TARGET_NAME MCU ARDUINO_VARIANT ARDUINO_MACRO PROGRAMM
   )
   target_compile_options(${TARGET_NAME}_core PRIVATE -w)
 
-  add_executable(${TARGET_NAME}.elf src/main.cpp)
+  add_executable(${TARGET_NAME}.elf ${ARGN})
   target_link_libraries(${TARGET_NAME}.elf PRIVATE ${TARGET_NAME}_core m)
 
   add_custom_command(TARGET ${TARGET_NAME}.elf POST_BUILD
