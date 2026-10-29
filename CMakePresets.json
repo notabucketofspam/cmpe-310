@@ -9,7 +9,8 @@
       "toolchainFile": "${sourceDir}/cmake/avr.toolchain.cmake",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "ARDUINO_CORE_DIR": "C:/opt/atmel/ArduinoCore-avr"
+        "ARDUINO_CORE_DIR": "C:/opt/atmel/ArduinoCore-avr",
+				"ARDUINO_LIBS_DIR": "C:/opt/atmel/arduino/user/libraries"
       },
       "vendor": {
         "microsoft.com/VisualStudioSettings/CMake/1.0": {

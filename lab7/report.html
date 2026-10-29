@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+	<link rel="stylesheet" type="text/css" href="https://waluigi-servebeer.com/css/great-scott.css">
+	<TITLE>Lab 7 Report</TITLE>
+	<style>
+		body {
+			margin-left: 0px;
+			margin-right: 0px;
+		}
+
+		h2 {
+			margin-bottom: 0;
+		}
+
+		ul, ol {
+			margin: 0;
+		}
+
+		pre {
+			margin: 0;
+		}
+
+		ol {
+			list-style-type: decimal;
+		}
+
+			ol ol {
+				list-style-type: lower-alpha;
+			}
+
+		#someinfo {
+			float: right;
+		}
+
+		span.comment {
+			color: #008000;
+		}
+
+		div#the-main-stuff {
+			background-color: white;
+		}
+		span.att {
+			background-color: #f2f2f2;
+			display:block;
+			font-family:monospace;
+			white-space:pre;
+		}
+		#the-report {
+			font-family: unset;
+		}
+		h3 {
+			margin: 0;
+		}
+	</style>
+</HEAD>
+<BODY>
+
+	<div class="sef lard" id="the-main-stuff">
+		<div id="someinfo">
+			<div id="mynameis"></div>
+			<div id="coursename"></div>
+			<div id="nowdate"></div>
+		</div>
+		<h1>Lab 7 Report</h1>
+
+		<div id="the-whole-thing">
+			<h2>answering some stuff</h2>
+			<ul>
+				<li>it seems to work fine using the 5V line on the Arduino</li>
+				<li>we are using <a class="" target="_blank" href="https://github.com/johnrickman/LiquidCrystal_I2C">"LiquidCrystal I2C"</a></li>
+				<li>We are using I<sup>2</sup>C, because it's very easy to use</li>
+				<li>Here's some pins:
+					<ul>
+						<li>input: <code>PC0 / A0</code></li>
+						<li>outputs: <code>SDA</code>&rarr;<code>PC4 / A4</code>, <code>SCL</code>&rarr;<code>PC5 / A5</code></li>
+					</ul>
+				</li>
+				<li>The schematic</li>
+			</ul>
+
+			<h2>A copy of the code</h2>
+			<span class="att"><pre id="the-report"></pre></span>
+
+			<h2>A Github link</h2>
+			<div><a class="" href="https://github.com/notabucketofspam/cmpe-310" target="_blank">https://github.com/notabucketofspam/cmpe-310</a></div>
+		</div>
+
+	</div>
+	<script>
+
+async function someAsyncStuff() {
+	const report_txt = "/cmpe/lab7/src/main.cpp";
+	const response = await fetch(report_txt);
+	const data = await response.text();
+	const the_report = document.getElementById("the-report");
+	if (the_report) {
+		const tabless = data.replace(/\t/g, '  ').trim();
+		// const tabless = data.trimEnd();
+		const greener = tabless.replaceAll(/\/\/(.*)?\n/g, `<span class="comment">#$1</span>\n`);
+
+		the_report.innerHTML = greener;
+	}
+	const infolink = "/nonce/info.json";
+	const info_response = await fetch(infolink);
+	const info_data = await info_response.json();
+	const mynameis = document.getElementById("mynameis");
+	if (mynameis) {
+		mynameis.textContent = info_data.name;
+	}
+	const coursename = document.getElementById("coursename");
+	if (coursename) {
+		coursename.textContent = info_data.course;
+	}
+	const nowdate = document.getElementById("nowdate");
+	if (nowdate) {
+		nowdate.textContent = new Date().toLocaleDateString();
+	}
+}
+someAsyncStuff();
+	</script>
+</BODY>
+</HTML>

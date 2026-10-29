@@ -52,3 +52,78 @@ function(add_avr_firmware TARGET_NAME MCU ARDUINO_VARIANT ARDUINO_MACRO PROGRAMM
     COMMENT "Flashing ${TARGET_NAME}.hex to ${MCU} on ${UPLOAD_PORT}..."
   )
 endfunction()
+
+function(import_core_library LIB_NAME MCU ARDUINO_VARIANT ARDUINO_MACRO)
+    set(F_CPU "16000000UL")
+    # Point directly to the hardware libraries bundled with the core
+    set(LIB_DIR "${ARDUINO_CORE_DIR}/libraries/${LIB_NAME}")
+
+    if(NOT EXISTS "${LIB_DIR}")
+        message(FATAL_ERROR "Core library '${LIB_NAME}' not found at ${LIB_DIR}")
+    endif()
+
+    # Explicitly include the src/utility folder required by Wire and Ethernet
+    file(GLOB LIB_SRC
+        "${LIB_DIR}/src/*.c"
+        "${LIB_DIR}/src/*.cpp"
+        "${LIB_DIR}/src/utility/*.c"
+        "${LIB_DIR}/src/utility/*.cpp"
+    )
+
+    add_library(${LIB_NAME} STATIC ${LIB_SRC})
+    
+    target_compile_options(${LIB_NAME} PRIVATE
+        -mmcu=${MCU} -DF_CPU=${F_CPU} -DARDUINO=10819 -D${ARDUINO_MACRO} -DARDUINO_ARCH_AVR
+        -Os -Wall -ffunction-sections -fdata-sections
+        $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++11>
+        $<$<COMPILE_LANGUAGE:CXX>:-fpermissive>
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics>
+        $<$<COMPILE_LANGUAGE:C>:-std=gnu11>
+    )
+
+    # Expose the utility headers to the compiler
+    target_include_directories(${LIB_NAME} PUBLIC
+        "${LIB_DIR}/src"
+        "${LIB_DIR}/src/utility"
+        "${ARDUINO_CORE_DIR}/cores/arduino"
+        "${ARDUINO_CORE_DIR}/variants/${ARDUINO_VARIANT}"
+    )
+endfunction()
+
+function(import_arduino_library LIB_NAME MCU ARDUINO_VARIANT ARDUINO_MACRO)
+    set(F_CPU "16000000UL")
+    set(LIB_DIR "${ARDUINO_LIBS_DIR}/${LIB_NAME}")
+
+    if(NOT EXISTS "${LIB_DIR}")
+        message(FATAL_ERROR "Arduino library '${LIB_NAME}' not found at ${LIB_DIR}")
+    endif()
+
+    # Safely glob sources while avoiding the "examples" folder
+    file(GLOB LIB_SRC
+        "${LIB_DIR}/*.c"
+        "${LIB_DIR}/*.cpp"
+        "${LIB_DIR}/src/*.c"
+        "${LIB_DIR}/src/*.cpp"
+    )
+
+    add_library(${LIB_NAME} STATIC ${LIB_SRC})
+    
+    target_compile_options(${LIB_NAME} PRIVATE
+        -mmcu=${MCU} -DF_CPU=${F_CPU} -DARDUINO=10819 -D${ARDUINO_MACRO} -DARDUINO_ARCH_AVR
+        -Os -Wall -ffunction-sections -fdata-sections
+        $<$<COMPILE_LANGUAGE:CXX>:-std=gnu++11>
+        $<$<COMPILE_LANGUAGE:CXX>:-fpermissive>
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
+        $<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics>
+        $<$<COMPILE_LANGUAGE:C>:-std=gnu11>
+    )
+
+    # Expose the library headers and Arduino core headers
+    target_include_directories(${LIB_NAME} PUBLIC
+        "${LIB_DIR}"
+        "${LIB_DIR}/src"
+        "${ARDUINO_CORE_DIR}/cores/arduino"
+        "${ARDUINO_CORE_DIR}/variants/${ARDUINO_VARIANT}"
+    )
+endfunction()
