@@ -52,6 +52,9 @@
 		h3 {
 			margin: 0;
 		}
+		sup {
+			line-height: 0;
+		}
 	</style>
 </HEAD>
 <BODY>
@@ -65,19 +68,23 @@
 		<h1>Lab 7 Report</h1>
 
 		<div id="the-whole-thing">
-			<h2>answering some stuff</h2>
+			<h2>Answering some questions</h2>
 			<ul>
-				<li>it seems to work fine using the 5V line on the Arduino</li>
-				<li>we are using <a class="" target="_blank" href="https://github.com/johnrickman/LiquidCrystal_I2C">"LiquidCrystal I2C"</a></li>
+				<li>It seems to work fine using the 5V line on the Arduino</li>
+				<li>We are using <a class="" target="_blank" href="https://github.com/johnrickman/LiquidCrystal_I2C">"LiquidCrystal I2C"</a></li>
 				<li>We are using I<sup>2</sup>C, because it's very easy to use</li>
-				<li>Here's some pins:
+				<li>The pins:
 					<ul>
 						<li>input: <code>PC0 / A0</code></li>
 						<li>outputs: <code>SDA</code>&rarr;<code>PC4 / A4</code>, <code>SCL</code>&rarr;<code>PC5 / A5</code></li>
 					</ul>
 				</li>
-				<li>The schematic</li>
 			</ul>
+			<h2>The Schematic</h2>
+			<ul>
+				<li>This is pretty much the simplest design that I could come up with.</li>
+			</ul>
+			<div><img src="/cmpe/lab7/schematic.png" alt="Schematic" class="cd-rom" /></div>
 
 			<h2>A copy of the code</h2>
 			<span class="att"><pre id="the-report"></pre></span>
