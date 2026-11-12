@@ -55,6 +55,9 @@
 		sup {
 			line-height: 0;
 		}
+		div#the-whole-thing img {
+			max-width: 4in;
+		}
 	</style>
 </HEAD>
 <BODY>
@@ -68,16 +71,10 @@
 		<h1>Lab 8 Report</h1>
 
 		<div id="the-whole-thing">
+			<h2>Intro</h2>
+			<div>This is lab 8.</div>
+
 			<h2>Task 1</h2>
-			<!-- Task 1: Continuity Measurement
-Design and implement a continuity detector using the Arduino. The circuit should use two probe
-wires to check whether there is an electrical connection between two points. If continuity exists,
-an LED should turn on. If there is no continuity, the LED should remain off.
-In your demonstration, show:
-• How the circuit is connected
-• Which Arduino pins are used
-• What happens in the open-wire condition
-• What happens in the closed-wire condition -->
 			<ul>
 				<li>How the circuit is connected:
 					<ul>
@@ -102,14 +99,67 @@ In your demonstration, show:
 					</ul>
 				</li>
 			</ul>
-
 			<h3>Some photographs of Task 1</h3>
+			<div class="flax" style="column-gap: 1em;">
+				<div>
+					<img src="/cmpe/lab8/photo/task1_open.jpg" alt="Open Wire" />
+					<div style="text-align: center;">Open Wire</div>
+				</div>
+				<div>
+					<img src="/cmpe/lab8/photo/task1_closed.jpg" alt="Closed Wire" />
+					<div style="text-align: center;">Closed Wire</div>
+				</div>
+			</div>
+
+			<h2>Task 2</h2>
+			<ul>
+				<li>How the circuit is connected:
+					<ul>
+						<li>See below</li>
+					</ul>
+				</li>
+				<li>The pins on the Arduino:
+					<ul>
+						<li>Probe 1 (yellow): Arduino A0</li>
+						<li>Probe 2 (orange): Arduino A1</li>
+						<li>LCD SDA &rarr; Arduino A4</li>
+						<li>LCD SCL &rarr; Arduino A5</li>
+					</ul>
+				</li>
+				<li>Case A: the voltage on the LED
+					<ul>
+						<li>Probe 1 goes on the cathode side</li>
+						<li>Probe 2 is for the anode side</li>
+						<li>The voltage: 2.09 V (more-or-less)</li>
+						<li><strong>Photograph</strong>
+							<div>
+								<img src="/cmpe/lab8/photo/task2_led.jpg" alt="measuring the voltage on the LED" />
+							</div>
+						</li>
+					</ul>
+				</li>
+				<li>Case B: same thing, but with the resistor instead
+					<ul>
+						<li>probe 1: closer to positive</li>
+						<li>probe 2: closer to ground</li>
+						<li>The measured voltage: 5.00 V</li>
+						<li><em>look at this photograph</em>
+							<div>
+								<img src="/cmpe/lab8/photo/task2_resistor.jpg" alt="voltage for the resistor" />
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
 
 			<h2>A copy of the code</h2>
 			<span class="att"><pre id="the-report"></pre></span>
 
 			<h2>A Github link</h2>
 			<div><a class="" href="https://github.com/notabucketofspam/cmpe-310" target="_blank">https://github.com/notabucketofspam/cmpe-310</a></div>
+
+			<h2>Conclusion of the Lab</h2>
+			<div>This is basically the same as the lab that we did last week.</div>
 		</div>
 
 	</div>
@@ -122,10 +172,12 @@ async function someAsyncStuff() {
 	const the_report = document.getElementById("the-report");
 	if (the_report) {
 		const tabless = data.replace(/\t/g, '  ').trim();
-		// const tabless = data.trimEnd();
-		const greener = tabless.replaceAll(/\/\/(.*)?\n/g, `<span class="comment">// $1</span>\n`);
+		const encode_me = tabless
+			.split('')
+			.map(x => `&#${x.charCodeAt(0)};`)
+			.join('');
 
-		the_report.innerHTML = greener;
+		the_report.innerHTML = encode_me;
 	}
 	const infolink = "/nonce/info.json";
 	const info_response = await fetch(infolink);
