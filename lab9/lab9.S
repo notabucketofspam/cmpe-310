@@ -176,5 +176,5 @@ _start:
 
 	# PLEASE GIVE UP
 	movq $60, %rax
-	xorq %rd1, %rdi
+	xorq %rdi, %rdi
 	syscall
