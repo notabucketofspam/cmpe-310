@@ -46,7 +46,7 @@ ssd_lut:
 .section .data
 nowtime: .quad 0x00 # very recent time
 lastime: .quad 0x00 # almost-recent time
-scroll_state: .byte 0x00 # where you at
+scroll_state: .quad 0x00 # where you at
 
 .section .text
 # see "Mastering GAS," page 194, for more information about macros
@@ -150,12 +150,12 @@ cmp_time:
 	movq nowtime(%rip), %rax
 	movq %rax, lastime(%rip) # update lastime to match nowtime
 	xorq %rax, %rax # clear rax
-	incb scroll_state(%rip) # we advance the state
-	cmpb scroll_state(%rip), $scroll_max
+	incq scroll_state(%rip) # we advance the state
+	cmpq scroll_state(%rip), $scroll_max
 	je cmp_time_wrap # jump if it's time to wrap
 	jmp cmp_time_done # goto end if not
 	cmp_time_wrap:
-	movb $0x00, scroll_state(%rip) # reset scroll_state
+	movq $0x00, scroll_state(%rip) # reset scroll_state
 	cmp_time_done:
 	reg_load
 	ret
