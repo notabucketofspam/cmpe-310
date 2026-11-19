@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<HTML>
+<HEAD>
+	<link rel="stylesheet" type="text/css" href="https://waluigi-servebeer.com/css/great-scott.css">
+	<TITLE>Lab 9 Report</TITLE>
+	<style>
+		body {
+			margin-left: 0px;
+			margin-right: 0px;
+		}
+
+		h2 {
+			margin-bottom: 0;
+		}
+
+		ul, ol {
+			margin: 0;
+		}
+
+		pre {
+			margin: 0;
+		}
+
+		ol {
+			list-style-type: decimal;
+		}
+
+			ol ol {
+				list-style-type: lower-alpha;
+			}
+
+		#someinfo {
+			float: right;
+		}
+
+		span.register {
+			color: #b00000;
+		}
+
+		span.directive {
+			color: #0000b0;
+		}
+		span.comment {
+			color: #008000!important;
+		}
+
+		div#the-main-stuff {
+			background-color: white;
+		}
+		span.att {
+			background-color: #f2f2f2;
+			display:block;
+			font-family:monospace;
+			white-space:pre;
+		}
+		#the-report {
+			font-family: unset;
+		}
+		h3 {
+			margin: 0;
+		}
+		sup {
+			line-height: 0;
+		}
+		div#the-whole-thing img {
+			max-width: 4in;
+		}
+	</style>
+</HEAD>
+<BODY>
+
+	<div class="sef lard" id="the-main-stuff">
+		<div id="someinfo">
+			<div id="mynameis"></div>
+			<div id="coursename"></div>
+			<div id="nowdate"></div>
+		</div>
+		<h1>Lab 9 Report</h1>
+
+		<div id="the-whole-thing">
+
+		<h2>An Introduction to the Lab</h2>
+		<div>This is a lab.</div>
+
+			<h2>Answers to Questions</h2>
+			<ol>
+				<li>What segments must be lit?
+					<table>
+						<thead>
+							<tr>
+								<th>Letter</th>
+								<th>Segments</th>
+								<th>Byte</th>
+							</tr>
+							</thead>
+							<!-- 
+							n : 0bxgfedcba
+							S : 0b01101101
+							H : 0b01110110
+							E : 0b01111001 
+							-->
+						<tbody>
+							<tr>
+								<td>S</td>
+								<td>gfdca</td>
+								<td>0b01101101</td>
+							</tr>
+							<tr>
+								<td>H</td>
+								<td>gfecb</td>
+								<td>0b01110110</td>
+							</tr>
+							<tr>
+								<td>E</td>
+								<td>gfeda</td>
+								<td>0b01111001</td>
+							</tr>
+						</tbody>
+					</table>
+				</li>
+				<li>What byte do I need to send?
+					<ul><li>See the table above.</li></ul>
+				</li>
+				<li>What mode do I have to set?
+					<ul><li>Mode 0, because all I need are the outputs</li></ul>
+				</li>
+				<li>Can I modify the 8255 to support a nine-digit display?
+					<ul>
+						<li>Yes. One of the bits in port B is unused, so I could just use that for the ninth digit.</li>
+						<li>Alternatively, I could use a bit from port C for the same purpose.</li>
+						<li>Both of these options would require a little bit of extra circuitry, though.</li>
+					</ul>
+				</li>
+			</ol>
+
+			<h2>Some other questions</h2>
+			<ol>
+				<li><b>Control Word Setup</b>: The control word <code>0x80</code> sets all ports to output, puts them in Mode 0 (basic I/O), and enables them</li>
+				<li><b>SSD bit pattern</b>: look at Table B in the lab document. It's really straight forward.</li>
+				<li><b>Port A</b>: since outputs are latched in Mode 0 on the 8255, we can just write the relevant byte to port A to activate our desired output digit, and then write a byte to port B to display the letter that we want.
+					<ul><li>Sidenote: the diagram in the lab doc is borked. All of NPN transistors for port A have their emitters connected to VCC. So current can't actually flow through it.</li></ul>
+				</li>
+				<li><b>Schmovement</b>: I used a look-up table for the SSD, along with an indexing offset to determine which parts should be written. For the timing, I'm just using normal Linux syscalls. <code>201</code> is the syscall for system time (unix epoch), in seconds.</li>
+				<li><b>Code description</b>: it should be very self-explanatory from the comments, but if you have any questions feel free to shoot me an email.</li>
+			</ol>
+
+			<h2>A copy of the code</h2>
+			<span class="att"><pre id="the-report"></pre></span>
+
+			<h2>A Github link</h2>
+			<div><a class="" href="https://github.com/notabucketofspam/cmpe-310" target="_blank">https://github.com/notabucketofspam/cmpe-310</a></div>
+
+			<h2>Conclusion of the Lab</h2>
+			<div>This was certainly one of the labs of all time.</div>
+		</div>
+
+	</div>
+	<script>
+
+async function someAsyncStuff() {
+	const report_txt = "/cmpe/lab9/lab9.S";
+	const response = await fetch(report_txt);
+	const data = await response.text();
+	const the_report = document.getElementById("the-report");
+	if (the_report) {
+		const tabless = data.replace(/\t/g, '  ').trim();
+		const colorized = tabless.replaceAll(
+			/(#[^\n]*)|(%[\w]+)|(\.[\w]+)/g,
+			(match, comment, register, directive) => {
+				if (comment) return `<span class="comment">${comment}</span>`;
+				if (register) return `<span class="register">${register}</span>`;
+				if (directive) return `<span class="directive">${directive}</span>`;
+				return match;
+			}
+		);
+		the_report.innerHTML = colorized;
+	}
+	const infolink = "/nonce/info.json";
+	const info_response = await fetch(infolink);
+	const info_data = await info_response.json();
+	const mynameis = document.getElementById("mynameis");
+	if (mynameis) {
+		mynameis.textContent = info_data.name;
+	}
+	const coursename = document.getElementById("coursename");
+	if (coursename) {
+		coursename.textContent = info_data.course;
+	}
+	const nowdate = document.getElementById("nowdate");
+	if (nowdate) {
+		nowdate.textContent = new Date().toLocaleDateString();
+	}
+}
+someAsyncStuff();
+	</script>
+</BODY>
+</HTML>
